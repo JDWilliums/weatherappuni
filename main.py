@@ -25,15 +25,73 @@ if response.status_code == 200:
     # Gets all data for current time, can add more types of data if needed
     location = data['timezone']
     currenttemp = data['current']['temp']
+    currentfeelslike = data['current']['feels_like']
     currentpressure = data['current']['pressure']
     currenthumidity = data['current']['humidity']
     currentwind = data['current']['wind_speed']
+    currentpressure = data['current']['pressure']
+    currentclouds = data['current']['clouds']
     currentdesc = data['current']['weather'][0]['description']
     currenticon = data['current']['weather'][0]['icon']
     
     # Data for future forecasts, hourly, and  daily data
     temp1hour = data['hourly'][0]['temp']
+    icon1hour = data['hourly'][0]['weather'][0]['icon']
+    
     temp2hour = data['hourly'][1]['temp']
+    icon2hour = data['hourly'][1]['weather'][0]['icon']
+    
+    temp3hour = data['hourly'][2]['temp']
+    icon3hour = data['hourly'][2]['weather'][0]['icon']
+    
+    temp4hour = data['hourly'][3]['temp']
+    icon4hour = data['hourly'][3]['weather'][0]['icon']
+    
+    temp5hour = data['hourly'][4]['temp']
+    icon5hour = data['hourly'][4]['weather'][0]['icon']
+    
+    temp6hour = data['hourly'][5]['temp']
+    icon6hour = data['hourly'][5]['weather'][0]['icon']
+    
+    temp7hour = data['hourly'][6]['temp']
+    icon7hour = data['hourly'][6]['weather'][0]['icon']
+
+    temp8hour = data['hourly'][7]['temp']
+    icon8hour = data['hourly'][7]['weather'][0]['icon']
+    
+    temp9hour = data['hourly'][8]['temp']
+    icon9hour = data['hourly'][8]['weather'][0]['icon']
+    
+    temp10hour = data['hourly'][9]['temp']
+    icon10hour = data['hourly'][9]['weather'][0]['icon']
+    
+    temp11hour = data['hourly'][10]['temp']
+    icon11hour = data['hourly'][10]['weather'][0]['icon']
+    
+    temp12hour = data['hourly'][11]['temp']
+    icon12hour = data['hourly'][11]['weather'][0]['icon']
+    
+    temp1day = data['daily'][0]['temp']['day']
+    icon1day = data['daily'][0]['weather'][0]['icon']
+    
+    temp2day = data['daily'][1]['temp']['day']
+    icon2day = data['daily'][1]['weather'][0]['icon']
+    
+    temp3day = data['daily'][2]['temp']['day']
+    icon3day = data['daily'][2]['weather'][0]['icon']
+    
+    temp4day = data['daily'][3]['temp']['day']
+    icon4day = data['daily'][3]['weather'][0]['icon']
+    
+    temp5day = data['daily'][4]['temp']['day']
+    icon5day = data['daily'][4]['weather'][0]['icon']
+    
+    temp6day = data['daily'][5]['temp']['day']
+    icon6day = data['daily'][5]['weather'][0]['icon']
+    
+    temp7day = data['daily'][6]['temp']['day']
+    icon7day = data['daily'][6]['weather'][0]['icon']
+      
     print("temp in 1 hour:", temp1hour)
     print("temp in 2 hour:", temp2hour)
     
