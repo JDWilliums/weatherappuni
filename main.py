@@ -2,6 +2,13 @@ import openai
 import requests
 from dotenv import find_dotenv, load_dotenv
 
+response2 = requests.get("https://ipgeolocation.abstractapi.com/v1/?api_key=b4b1e122aac142ed9ecdb0e89544a381")
+print(response2.status_code)
+print(response2.content)
+
+locationData = response2.json()
+
+
 load_dotenv()
 
 
@@ -10,8 +17,9 @@ load_dotenv()
 
 
 # get users location, maybe convert to long, lat for api (geocoding api)
-lat = 51.5
-lon = -0.12
+lat = locationData['latitude']
+lon = locationData['longitude']
+print("long and lat :" , lat, " ", lon)
 units = 'metric' # standard = temp in Kelvin and windspeed in meter/sec, imperial = fahrenheit and miles/hour, metric = celsius and meter/sec
 api_key = "68a7c54e00bb87f6376a5105a36a2f24"
 url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units={units}&appid={api_key}"
@@ -23,7 +31,8 @@ if response.status_code == 200:
     data = response.json()
     
     # Gets all data for current time, can add more types of data if needed
-    location = data['timezone']
+    timezone = data['timezone']
+    location = f"{locationData['city']}, {locationData['region']}"
     currenttemp = data['current']['temp']
     currentfeelslike = data['current']['feels_like']
     currentpressure = data['current']['pressure']
@@ -91,9 +100,6 @@ if response.status_code == 200:
     
     temp7day = data['daily'][6]['temp']['day']
     icon7day = data['daily'][6]['weather'][0]['icon']
-      
-    print("temp in 1 hour:", temp1hour)
-    print("temp in 2 hour:", temp2hour)
     
     todaySummary = data['daily'][0]['summary']
     
@@ -108,13 +114,35 @@ if response.status_code == 200:
 else:
     print('Error fetching weather data')
     
-print('Your location is: ', location)
+print('Your location is:', location)
+print('Your timezone is: ', timezone)
 print("The current temperature is: ", currenttemp)
 print("The current pressure is: ",currentpressure)
 print("The current humidity is: ",currenthumidity)
 print("The current wind speed is: ",currentwind)
 print("Description: ",currentdesc)
 print(todaySummary)
+
+print("Temperature in 1h: ", temp1hour)
+print("Temperature in 2h: ", temp2hour)
+print("Temperature in 3h: ", temp3hour)
+print("Temperature in 4h: ", temp4hour)
+print("Temperature in 5h: ", temp5hour)
+print("Temperature in 6h: ", temp6hour)
+print("Temperature in 7h: ", temp7hour)
+print("Temperature in 8h: ", temp8hour)
+print("Temperature in 9h: ", temp9hour)
+print("Temperature in 10h: ", temp10hour)
+print("Temperature in 11h: ", temp11hour)
+print("Temperature in 12h: ", temp12hour)
+
+print("Temperature in 1 day: ", temp1day)
+print("Temperature in 2 day: ", temp2day)
+print("Temperature in 3 day: ", temp3day)
+print("Temperature in 4 day: ", temp4day)
+print("Temperature in 5 day: ", temp5day)
+print("Temperature in 6 day: ", temp6day)
+print("Temperature in 7 day: ", temp7day)
 
 
 #chatgpt stuff
