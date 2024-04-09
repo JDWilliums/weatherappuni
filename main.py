@@ -163,7 +163,7 @@ thread = client.beta.threads.create()
 thread_message = client.beta.threads.messages.create(
     thread_id=thread.id,
     role="user",
-    content=f"{data}",
+    content=f"The user is located at: {location}. API data to use: {data}",
 )
 
 run = client.beta.threads.runs.create(
