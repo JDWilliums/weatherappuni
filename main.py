@@ -1,8 +1,15 @@
 import openai
 import requests
+import os
+from dotenv import find_dotenv, load_dotenv
+load_dotenv()
+
+openai_key = os.getenv("OPENAI_API_KEY")
+abstract_key = os.getenv("ABSTRACT_API_KEY")
+weather_key=os.getenv("OPENWEATHERMAP_API_KEY")
 
 #Abstract API
-responseLoc = requests.get("https://ipgeolocation.abstractapi.com/v1/?api_key=b4b1e122aac142ed9ecdb0e89544a381")
+responseLoc = requests.get(f"https://ipgeolocation.abstractapi.com/v1/?api_key={abstract_key}")
 print(responseLoc.status_code)
 print(responseLoc.content)
 locationData = responseLoc.json()
@@ -14,8 +21,7 @@ print("long and lat :" , lat, " ", lon)
 
 #OpenWeatherMap API
 units = 'metric' # standard = temp in Kelvin and windspeed in meter/sec, imperial = fahrenheit and miles/hour, metric = celsius and meter/sec
-api_key = "68a7c54e00bb87f6376a5105a36a2f24"
-url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units={units}&appid={api_key}"
+url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units={units}&appid={weather_key}"
 
 
 response = requests.get(url)
