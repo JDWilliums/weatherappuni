@@ -1,25 +1,18 @@
 import openai
 import requests
-from dotenv import find_dotenv, load_dotenv
 
-response2 = requests.get("https://ipgeolocation.abstractapi.com/v1/?api_key=b4b1e122aac142ed9ecdb0e89544a381")
-print(response2.status_code)
-print(response2.content)
-
-locationData = response2.json()
-
-
-load_dotenv()
-
-
-
-
-
+#Abstract API
+responseLoc = requests.get("https://ipgeolocation.abstractapi.com/v1/?api_key=b4b1e122aac142ed9ecdb0e89544a381")
+print(responseLoc.status_code)
+print(responseLoc.content)
+locationData = responseLoc.json()
 
 # get users location, maybe convert to long, lat for api (geocoding api)
 lat = locationData['latitude']
 lon = locationData['longitude']
 print("long and lat :" , lat, " ", lon)
+
+#OpenWeatherMap API
 units = 'metric' # standard = temp in Kelvin and windspeed in meter/sec, imperial = fahrenheit and miles/hour, metric = celsius and meter/sec
 api_key = "68a7c54e00bb87f6376a5105a36a2f24"
 url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units={units}&appid={api_key}"
@@ -30,7 +23,7 @@ response = requests.get(url)
 if response.status_code == 200:
     data = response.json()
     
-    # Gets all data for current time, can add more types of data if needed
+    # Gets all weather data for current time from api, can add more types of data if needed
     timezone = data['timezone']
     location = f"{locationData['city']}, {locationData['region']}"
     currenttemp = data['current']['temp']
@@ -103,6 +96,7 @@ if response.status_code == 200:
     
     todaySummary = data['daily'][0]['summary']
     
+    #Alert System
     try:
         alertSender = data['alerts'][0]['sender_name']
         alertEvent = data['alerts'][0]['event']
@@ -145,10 +139,11 @@ print("Temperature in 6 day: ", temp6day)
 print("Temperature in 7 day: ", temp7day)
 
 
-#chatgpt stuff
+#ChatGPT
 client = openai.OpenAI()
 instruct = "You are a weather assistant that will help users and give a description of todays weather and help them with what type of outfit to where or to bring an umbrella etc. Keep response at a normal paragraph length. You will also be given weather information, you must use this in your response to the user."
 
+#Assistant creation
 my_assistant = client.beta.assistants.create(
     model="gpt-3.5-turbo",
     instructions = instruct,
@@ -156,7 +151,7 @@ my_assistant = client.beta.assistants.create(
     tools =[{"type": "code_interpreter"}],
 )
 
-#thread stuff
+#Thread Creation
 thread = client.beta.threads.create()
 
 thread_message = client.beta.threads.messages.create(
@@ -170,6 +165,7 @@ run = client.beta.threads.runs.create(
     assistant_id=my_assistant.id,
 )
 
+# Handles ChatGPT message and wait time
 while run.status in ["queued", "in_progress"]:
     keep_retrieving_run = client.beta.threads.runs.retrieve(
         thread_id=thread.id,
