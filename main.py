@@ -102,13 +102,21 @@ if response.status_code == 200:
     
     todaySummary = data['daily'][0]['summary']
     
+    
     #Alert System
+    alert = False
     try:
         alertSender = data['alerts'][0]['sender_name']
         alertEvent = data['alerts'][0]['event']
         alertDesc = data['alerts'][0]['description']
+        print("Danger Alert: Natural distaster of unuseual weather conditions detected!")
+        alert = True
     except:
         print("There are no current alerts for your area.")
+        
+    if (alert):
+        print(f"- {alertEvent}: {alertDesc}")
+        print(f"Sender: {alertSender}")
     
     
 else:
