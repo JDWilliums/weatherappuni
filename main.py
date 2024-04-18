@@ -11,7 +11,7 @@ weather_key=os.getenv("OPENWEATHERMAP_API_KEY")
 #Abstract API
 responseLoc = requests.get(f"https://ipgeolocation.abstractapi.com/v1/?api_key={abstract_key}")
 print(responseLoc.status_code)
-if responseLoc = status_code == 200:
+if responseLoc.status_code == 200:
 
     print(responseLoc.content)
     locationData = responseLoc.json()
