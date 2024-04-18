@@ -11,13 +11,17 @@ weather_key=os.getenv("OPENWEATHERMAP_API_KEY")
 #Abstract API
 responseLoc = requests.get(f"https://ipgeolocation.abstractapi.com/v1/?api_key={abstract_key}")
 print(responseLoc.status_code)
-print(responseLoc.content)
-locationData = responseLoc.json()
+if responseLoc = status_code == 200:
 
-# get the users location
-lat = locationData['latitude']
-lon = locationData['longitude']
-print("long and lat :" , lat, " ", lon)
+    print(responseLoc.content)
+    locationData = responseLoc.json()
+    
+    # get the users location
+    lat = locationData['latitude']
+    lon = locationData['longitude']
+    print("long and lat :" , lat, " ", lon)
+else:
+    Print("Error fetching location data!")
 
 #OpenWeatherMap API
 units = 'metric' # standard = temp in Kelvin and windspeed in meter/sec, imperial = fahrenheit and miles/hour, metric = celsius and meter/sec
