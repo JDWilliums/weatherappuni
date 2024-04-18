@@ -14,7 +14,7 @@ print(responseLoc.status_code)
 print(responseLoc.content)
 locationData = responseLoc.json()
 
-# get users location, maybe convert to long, lat for api (geocoding api)
+# get the users location
 lat = locationData['latitude']
 lon = locationData['longitude']
 print("long and lat :" , lat, " ", lon)
